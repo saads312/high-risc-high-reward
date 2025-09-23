@@ -9,4 +9,6 @@ initial begin
     $readmemh("instr_mem.hex", imem_array);
 end
 
+assign instruction = imem_array[pc[11:2]];
+
 endmodule
