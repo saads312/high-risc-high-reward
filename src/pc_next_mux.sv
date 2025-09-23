@@ -6,10 +6,10 @@ module pc_next_mux (
 );
 
 always_comb begin
-    if (!pc_src) begin
-        next_pc = pc_target; // Use target address if pc_src is not asserted
+    if (pc_src) begin
+        next_pc = pc_target; // Use target address if pc_src is asserted (branch taken)
     end else begin
-        next_pc = pc_plus_4; // Otherwise, use the incremented PC value
+        next_pc = pc_plus_4; // Otherwise, use the incremented PC value (normal execution)
     end
     
 endmodule

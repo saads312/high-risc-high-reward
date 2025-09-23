@@ -10,12 +10,12 @@ always_comb begin
     unique case (alu_op)
         2'b00: alu_ctrl = 3'b000; // LW, SW → ADD
         2'b01: alu_ctrl = 3'b001; // BEQ → SUB
-        2'b10: begin // R-type
+        2'b10: begin // R-type and I-type ALU
             unique case (funct3)
-                3'b000: alu_ctrl = (funct7) ? 3'b001 : 3'b000; // SUB if funct7[5]=1, else ADD
-                3'b010: alu_ctrl = 3'b101; // SLT
-                3'b110: alu_ctrl = 3'b010; // OR
-                3'b111: alu_ctrl = 3'b011; // AND
+                3'b000: alu_ctrl = (op5 & funct7) ? 3'b001 : 3'b000; // SUB if R-type & funct7[5]=1, else ADD
+                3'b010: alu_ctrl = 3'b101; // SLT/SLTI
+                3'b110: alu_ctrl = 3'b010; // OR/ORI
+                3'b111: alu_ctrl = 3'b011; // AND/ANDI
                 default: alu_ctrl = 3'b000;
             endcase
         end
